@@ -13,6 +13,11 @@ class LoginController extends Controller
     }
 
     public function login() {
+        request()->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required']
+        ]);
+
         if($user = User::query()
             ->where('email', '=', request()->email)
             ->first()
@@ -24,6 +29,6 @@ class LoginController extends Controller
             }
         }
     
-    return back()->with(['message' => 'não encontrado']);
+    return back()->with(['message' => 'Não deu certo!!!']);
     }
 }
