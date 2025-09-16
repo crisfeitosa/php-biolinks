@@ -22,9 +22,15 @@ class LinkController extends Controller
     public function store(StoreLinkRequest $request)
     {
         /** @var User $user */
-        Link::query()->create(
-          $request->validated()
-        );
+        $user = \Illuminate\Support\Facades\Auth::user();
+        $user->links()->create($request->validated());
+
+        // Link::query()->create(
+        //     array_merge(
+        //         $request->validated(),
+        //         ['user_id' => Auth::id()]
+        //     )
+        // );
 
         return to_route('dashboard');
     }
