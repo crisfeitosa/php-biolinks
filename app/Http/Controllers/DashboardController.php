@@ -10,8 +10,6 @@ class DashboardController extends Controller
     public function __invoke() {
         $user = Auth::user();
 
-        dump( $user->links );
-
         return view('dashboard', [
             'links' => $user->links
         ]);
