@@ -1,15 +1,16 @@
 <div>
-    <h1>Create a Link</h1>
+    <h1>Edit Link :: {{ $link->name }}</h1>
 
     @if ($message = session()->get('message'))
         <div>{{ $message }}</div>
     @endif
 
-    <form action="{{ route('links.create') }}" method="post">
+    <form action="{{ route('links.edit', $link) }}" method="post">
         @csrf
+        @method('put')
 
         <div>
-            <input name="link" value="{{ old('link') }}" placeholder="New Link" />
+            <input name="link" value="{{ old('link', $link->link) }}" placeholder="Link" />
             @error('link')
                 <span>{{ $message }}</span>
             @enderror
@@ -18,7 +19,7 @@
         <br />
 
         <div>
-            <input name="name" value="{{ old('name') }}" placeholder="Name" />
+            <input name="name" value="{{ old('name', $link->name) }}" placeholder="Name" />
             @error('name')
                 <span>{{ $message }}</span>
             @enderror
