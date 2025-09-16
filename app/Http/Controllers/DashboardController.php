@@ -12,6 +12,8 @@ class DashboardController extends Controller
 
         dump( $user->links );
 
-        return view('dashboard');
+        return view('dashboard', [
+            'links' => $user->links
+        ]);
     }
 }
