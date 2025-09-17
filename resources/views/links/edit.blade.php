@@ -27,6 +27,7 @@
 
         <br />
 
+        <a href="{{ route('dashboard') }}">Cancel</a>
         <button type="submit">Save</button>
     </form>
 </div>
