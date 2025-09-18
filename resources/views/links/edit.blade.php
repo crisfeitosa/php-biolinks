@@ -1,33 +1,35 @@
-<div>
-    <h1>Edit Link :: {{ $link->name }}</h1>
+<x-layout.app>
+    <div>
+        <h1>Edit Link :: {{ $link->name }}</h1>
 
-    @if ($message = session('message'))
+        @if ($message = session('message'))
         <div>{{ $message }}</div>
-    @endif
+        @endif
 
-    <form action="{{ route('links.edit', $link) }}" method="post">
-        @csrf
-        @method('put')
+        <form action="{{ route('links.edit', $link) }}" method="post">
+            @csrf
+            @method('put')
 
-        <div>
-            <input name="link" value="{{ old('link', $link->link) }}" placeholder="Link" />
-            @error('link')
+            <div>
+                <input name="link" value="{{ old('link', $link->link) }}" placeholder="Link" />
+                @error('link')
                 <span>{{ $message }}</span>
-            @enderror
-        </div>
+                @enderror
+            </div>
 
-        <br />
+            <br />
 
-        <div>
-            <input name="name" value="{{ old('name', $link->name) }}" placeholder="Name" />
-            @error('name')
+            <div>
+                <input name="name" value="{{ old('name', $link->name) }}" placeholder="Name" />
+                @error('name')
                 <span>{{ $message }}</span>
-            @enderror
-        </div>
+                @enderror
+            </div>
 
-        <br />
+            <br />
 
-        <a href="{{ route('dashboard') }}">Cancel</a>
-        <button type="submit">Save</button>
-    </form>
-</div>
+            <a href="{{ route('dashboard') }}">Cancel</a>
+            <button type="submit">Save</button>
+        </form>
+    </div>
+</x-layout.app>

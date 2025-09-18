@@ -1,47 +1,49 @@
-<div>
-    {{ auth()->id()}}
-    <h1>Register</h1>
+<x-layout.app>
+    <div>
+        {{ auth()->id()}}
+        <h1>Register</h1>
 
-    @if ($message = session()->get('message'))
+        @if ($message = session()->get('message'))
         <div>{{ $message }}</div>
-    @endif
+        @endif
 
-    <form action="{{ route('register') }}" method="post">
-        @csrf
+        <form action="{{ route('register') }}" method="post">
+            @csrf
 
-        <div>
-            <input name="name" value="{{ old('name') }}" placeholder="Name" />
-            @error('name')
+            <div>
+                <input name="name" value="{{ old('name') }}" placeholder="Name" />
+                @error('name')
                 <span>{{ $message }}</span>
-            @enderror
-        </div>
+                @enderror
+            </div>
 
-        <br />
+            <br />
 
-        <div>
-            <input name="email" type="email" value="{{ old('email') }}" placeholder="Email" />
-            @error('email')
+            <div>
+                <input name="email" type="email" value="{{ old('email') }}" placeholder="Email" />
+                @error('email')
                 <span>{{ $message }}</span>
-            @enderror
-        </div>
+                @enderror
+            </div>
 
-        <br />
+            <br />
 
-        <div>
-            <input name="email_confirmation" placeholder="Email Confirmation" />
-        </div>
+            <div>
+                <input name="email_confirmation" placeholder="Email Confirmation" />
+            </div>
 
-        <br />
+            <br />
 
-        <div>
-            <input name="password" type="password" placeholder="Password" />
-            @error('password')
+            <div>
+                <input name="password" type="password" placeholder="Password" />
+                @error('password')
                 <span>{{ $message }}</span>
-            @enderror
-        </div>
+                @enderror
+            </div>
 
-        <br />
+            <br />
 
-        <button type="submit">Register</button>
-    </form>
-</div>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+</x-layout.app>
