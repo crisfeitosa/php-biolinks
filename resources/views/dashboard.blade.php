@@ -1,8 +1,9 @@
 <div>
     <h1>Dashboard</h1>
     <h2>User {{ auth()->user()->name }} :: {{ auth()->id() }}</h2>
+    <a href="{{ route('profile') }}">Profile</a>
 
-    @if ($message = session()->get('message'))
+    @if ($message = session('message'))
         <div>{{ $message }}</div>
     @endif
 

@@ -1,7 +1,7 @@
 <div>
     <h1>Create a Link</h1>
 
-    @if ($message = session()->get('message'))
+    @if ($message = session('message'))
         <div>{{ $message }}</div>
     @endif
 
