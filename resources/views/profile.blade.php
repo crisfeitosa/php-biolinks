@@ -1,50 +1,25 @@
 <x-layout.app>
-    <div>
-        <h1>Profile</h1>
+    <x-container>
+        <x-card title="Profile">
+            <x-form :route="route('profile')"
+                put
+                id="profile-form"
+                enctype="multipart/form-data">
+                <div class="flex gap-4 items-center">
+                    <x-img src='/storage/{{ $user->photo }}' alt='{{ $user->name }}' />
 
-        @if ($message = session('message'))
-        <div>{{ $message }}</div>
-        @endif
+                    <x-file-input name="photo" />
+                </div>
+                <x-input name="name" id="name" placeholder="Name" value="{{ old('name',$user->name) }}" />
 
-        <form action="{{ route('profile') }}" method="post" enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
+                <x-textarea name="description" id="description" placeholder="Description" value="{{ old('description',$user->description)}}" />
 
-            <div>
-                <img src="/storage/{{ $user->photo }}" alt="Profile Picture" />
-                <input type="file" name="photo" />
-            </div>
-
-            <div>
-                <input name="name" placeholder="Name" value="{{ old('name', $user->name) }}" />
-                @error('name')
-                <span>{{ $message }}</span>
-                @enderror
-            </div>
-
-            <br />
-
-            <div>
-                <textarea name="description" placeholder="Description">{{ old('description', $user->description) }}</textarea>
-                @error('description')
-                <span>{{ $message }}</span>
-                @enderror
-            </div>
-
-            <br />
-
-            <div>
-                <span>biolinks.com.br/</span>
-                <input name="handler" placeholder="@yourLink" value="{{ old('handler', $user->handler) }}" />
-                @error('handler')
-                <span>{{ $message }}</span>
-                @enderror
-            </div>
-
-            <br />
-
-            <a href="{{ route('dashboard') }}">Cancel</a>
-            <button>Update</button>
-        </form>
-    </div>
+                <x-input name="handler" prefix="biolinks.com.br/" id="handler" placeholder="@yourLink" value="{{ old('handler',$user->handler)}}" />
+            </x-form>
+            <x-slot:actions>
+                <x-a :href="route('dashboard')">Back to Dashboard</x-a>
+                <x-button type="submit" form="profile-form">Save</x-button>
+            </x-slot:actions>
+        </x-card>
+    </x-container>
 </x-layout.app>

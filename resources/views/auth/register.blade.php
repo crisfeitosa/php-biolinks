@@ -1,49 +1,17 @@
 <x-layout.app>
-    <div>
-        {{ auth()->id()}}
-        <h1>Register</h1>
-
-        @if ($message = session()->get('message'))
-        <div>{{ $message }}</div>
-        @endif
-
-        <form action="{{ route('register') }}" method="post">
-            @csrf
-
-            <div>
-                <input name="name" value="{{ old('name') }}" placeholder="Name" />
-                @error('name')
-                <span>{{ $message }}</span>
-                @enderror
-            </div>
-
-            <br />
-
-            <div>
-                <input name="email" type="email" value="{{ old('email') }}" placeholder="Email" />
-                @error('email')
-                <span>{{ $message }}</span>
-                @enderror
-            </div>
-
-            <br />
-
-            <div>
-                <input name="email_confirmation" placeholder="Email Confirmation" />
-            </div>
-
-            <br />
-
-            <div>
-                <input name="password" type="password" placeholder="Password" />
-                @error('password')
-                <span>{{ $message }}</span>
-                @enderror
-            </div>
-
-            <br />
-
-            <button type="submit">Register</button>
-        </form>
-    </div>
+    <x-container>
+        <x-card title="Register">
+            <x-form :route="route('register')"
+            post id="register-form" >
+                <x-input name="name" id="name" value="{{ old('name')}}" placeholder="Name"  />
+                <x-input name="email" id="email" value="{{ old('email')}}" placeholder="E-mail"  />
+                <x-input name="email_confirmation" id="email_confirmation" placeholder="E-mail Confirm" />
+                <x-input type="password" name="password" id="password" placeholder="Password" />
+            </x-form>
+            <x-slot:actions>
+                <x-a :href="route('login')">Already have an account?</x-a>
+                <x-button type="submit" form="register-form">Register</x-button>
+            </x-slot:actions>
+        </x-card>
+    </x-container>
 </x-layout.app>
