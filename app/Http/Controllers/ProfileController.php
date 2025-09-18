@@ -24,6 +24,10 @@ class ProfileController extends Controller
 
         $data = $request->validated();
 
+        if ($file = $request->photo){
+           $data['photo'] = $file->store('photos');
+        }
+
         $user->fill($data)->save();
         return back()
            ->with('message', 'Profile updated successfully!');
