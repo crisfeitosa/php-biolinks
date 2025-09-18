@@ -29,6 +29,7 @@ class ProfileRequest extends FormRequest
             'handler' => [
                 'required',
                 Rule::unique('users')->ignoreModel($this->user()),
+                new CheckHandler
             ],
         ];
     }
