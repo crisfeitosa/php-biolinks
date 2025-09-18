@@ -1,51 +1,51 @@
 <x-layout.app>
-    <div>
-        <h1>Dashboard</h1>
-        <h2>User {{ auth()->user()->name }} :: {{ auth()->id() }}</h2>
-        <a href="{{ route('profile') }}">Profile</a>
+    <x-container>
+        <div class="absolute top-10 left-10 flex flex-col gap-4">
+            <x-button info :href="route('profile')">Update profile</x-button>
+            <x-button outline :href="route('links.create')">Create a new link</x-button>
+            <x-button error :href="route('logout')">Logout</x-button>
+        </div>
 
-        @if ($message = session('message'))
-        <div>{{ $message }}</div>
-        @endif
+        <div class="text-center space-y-2 text-base-200">
+            <x-img src='/storage/{{ $user->photo }}' alt='{{ $user->name }}' />
+            <div class="font-bold text-2xl tracking-winder text-blue-50">{{ $user->name }}</div>
+            <div class="text-sm italic text-blue-50 opacity-80 mb-7">{{ $user->description }}</div>
 
-        <a href="{{ route('links.create') }}">Create Link</a>
+            <ul class="space-y-4">
+                @foreach ($links as $link )
+                <li class="flex justify-center items-center gap-4">
 
-        <a href="{{ route('logout') }}">Logout</a>
+                    @unless($loop->last)
+                    <x-form :route="route('links.down', $link)" patch>
+                        <x-button outline>
+                            <x-icons.down class="w-6 h-6" />
+                        </x-button>
+                    </x-form>
+                    @else
+                    <x-button disabled outline> <x-icons.down class="w-6 h-6" /></x-button>
+                    @endunless
 
-        <ul>
-            @foreach ($links as $link)
-            <li style="display: flex;">
+                    @unless($loop->first)
+                    <x-form :route="route('links.up', $link)" patch>
+                        <x-button outline>
+                            <x-icons.up class="w-6 h-6" />
+                        </x-button>
+                    </x-form>
+                    @else
+                    <x-button disabled outline> <x-icons.up class="w-5 h-6" /></x-button>
+                    @endunless
 
-                @unless ($loop->last)
-                <form action="{{ route('links.down', $link) }}" method="post">
-                    @csrf
-                    @method('PATCH')
-
-                    <button>⬇️</button>
-                </form>
-                @endunless
-
-                @unless ($loop->first)
-                <form action="{{ route('links.up', $link) }}" method="post">
-                    @csrf
-                    @method('PATCH')
-
-                    <button>⬆️</button>
-                </form>
-                @endunless
-
-                <a href="{{ route('links.edit', $link) }}">
-                    {{ $link->id }} . {{ $link->name }}
-                </a>
-
-                <form action="{{ route('links.destroy', $link) }}" method="post" onsubmit="return confirm('Are you sure?')">
-                    @csrf
-                    @method('DELETE')
-
-                    <button type="submit">🗑️</button>
-                </form>
-            </li>
-            @endforeach
-        </ul>
-    </div>
+                    <x-button href="{{ route('links.edit', $link->id ) }}" block outline info>
+                        {{ $link->name }}
+                    </x-button>
+                    <x-form :route="route('links.destroy', $link)" delete onsubmit="return confirm(' ')">
+                        <x-button error>
+                            <x-icons.trash class="w-6 h-6" />
+                        </x-button>
+                    </x-form>
+                </li>
+                @endforeach
+            </ul>
+        </div>
+    </x-container>
 </x-layout.app>
